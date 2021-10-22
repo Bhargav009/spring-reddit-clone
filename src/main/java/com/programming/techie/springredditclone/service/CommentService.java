@@ -1,22 +1,23 @@
 package com.programming.techie.springredditclone.service;
 
+import static java.util.stream.Collectors.toList;
+
+import java.util.List;
+
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
 import com.programming.techie.springredditclone.dto.CommentsDto;
 import com.programming.techie.springredditclone.exceptions.PostNotFoundException;
 import com.programming.techie.springredditclone.mapper.CommentMapper;
 import com.programming.techie.springredditclone.model.Comment;
-import com.programming.techie.springredditclone.model.NotificationEmail;
 import com.programming.techie.springredditclone.model.Post;
 import com.programming.techie.springredditclone.model.User;
 import com.programming.techie.springredditclone.repository.CommentRepository;
 import com.programming.techie.springredditclone.repository.PostRepository;
 import com.programming.techie.springredditclone.repository.UserRepository;
+
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @Service
 @AllArgsConstructor
@@ -28,7 +29,7 @@ public class CommentService {
     private final CommentMapper commentMapper;
     private final CommentRepository commentRepository;
     private final MailContentBuilder mailContentBuilder;
-    private final MailService mailService;
+//    private final MailService mailService;
 
     public void save(CommentsDto commentsDto) {
         Post post = postRepository.findById(commentsDto.getPostId())
@@ -41,7 +42,7 @@ public class CommentService {
     }
 
     private void sendCommentNotification(String message, User user) {
-        mailService.sendMail(new NotificationEmail(user.getUsername() + " Commented on your post", user.getEmail(), message));
+//        mailService.sendMail(new NotificationEmail(user.getUsername() + " Commented on your post", user.getEmail(), message));
     }
 
     public List<CommentsDto> getAllCommentsForPost(Long postId) {
